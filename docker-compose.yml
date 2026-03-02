@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  postgres_db:
+    image: postgres:15
+    container_name: psql_pdbd
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "123456" # Las comillas evitan errores con números
+      POSTGRES_DB: pdbd_ventas   # Nombre de tu base de datos
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mongo_db:
+    image: mongo:7
+    container_name: mongo_pdbd
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: "123456"
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
+  postgres_data:

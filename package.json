@@ -1,0 +1,21 @@
+{
+  "name": "pdbd",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "This project is a high-performance backend solution designed to migrate legacy data from unmanageable flat files (Excel/CSV) into a modern, scalable, and hybrid architecture using **Node.js, Express, PostgreSQL, and MongoDB**.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1"
+  }
+}
