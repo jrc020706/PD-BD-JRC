@@ -11,7 +11,7 @@ for (const key of required) {
 // Exportación compatible con ES Modules
 export const config = {
     PORT: process.env.PORT || 3000,
-    DATABASE_URL: process.env.DATABASE_URL,
+    POSTGRES_URL: process.env.POSTGRES_URL,
     MONGODB_URI: process.env.MONGODB_URI,
     MONGODB_DB: process.env.MONGODB_DB,
     CSV_PATH: process.env.CSV_PATH || './data/pd_logitech.csv',

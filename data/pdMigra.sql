@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "Customer" (
+CREATE TABLE IF NOT EXISTS "customer" (
 	"id_customer" SERIAL NOT NULL UNIQUE,
 	"customer_name" VARCHAR(255) NOT NULL,
 	"customer_email" VARCHAR(255) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS "Customer" (
 
 
 
-CREATE TABLE IF NOT EXISTS "Product" (
+CREATE TABLE IF NOT EXISTS "product" (
 	"id_product" SERIAL NOT NULL UNIQUE,
 	"product_sku" VARCHAR(255) NOT NULL,
 	"product_name" VARCHAR(255) NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS "Product" (
 
 
 
-CREATE TABLE IF NOT EXISTS "Suppliers" (
+CREATE TABLE IF NOT EXISTS "suppliers" (
 	"id_supplier" SERIAL NOT NULL UNIQUE,
 	"supplier_name" VARCHAR(255) NOT NULL,
 	"supplier_email" VARCHAR(255) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS "Suppliers" (
 
 
 
-CREATE TABLE IF NOT EXISTS "Transaction" (
+CREATE TABLE IF NOT EXISTS "transaction" (
 	"id_transaction" SERIAL NOT NULL UNIQUE,
 	"id_orders" INTEGER NOT NULL,
 	"id_customer" INTEGER NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS "Transaction" (
 
 CREATE TABLE IF NOT EXISTS "product_categories" (
 	"id_pcategory" SERIAL NOT NULL UNIQUE,
-	"category_name" VARCHAR(255) NOT NULL,
+	"category_name" VARCHAR(255) NOT NULL UNIQUE,
 	PRIMARY KEY("id_pcategory")
 );
 
@@ -63,18 +63,18 @@ CREATE TABLE IF NOT EXISTS "orders" (
 
 
 
-ALTER TABLE "Customer"
-ADD FOREIGN KEY("id_customer") REFERENCES "Transaction"("id_customer")
+ALTER TABLE "customer"
+ADD FOREIGN KEY("id_customer") REFERENCES "transaction"("id_customer")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "Transaction"
-ADD FOREIGN KEY("id_transaction") REFERENCES "Product"("id_product")
+ALTER TABLE "transaction"
+ADD FOREIGN KEY("id_transaction") REFERENCES "product"("id_product")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "Suppliers"
-ADD FOREIGN KEY("id_supplier") REFERENCES "Transaction"("id_supplier")
+ALTER TABLE "suppliers"
+ADD FOREIGN KEY("id_supplier") REFERENCES "transaction"("id_supplier")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "product_categories"
-ADD FOREIGN KEY("id_pcategory") REFERENCES "Product"("id_pcategory")
+ADD FOREIGN KEY("id_pcategory") REFERENCES "product"("id_pcategory")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "orders"
-ADD FOREIGN KEY("id_orders") REFERENCES "Transaction"("id_orders")
+ADD FOREIGN KEY("id_orders") REFERENCES "transaction"("id_orders")
 ON UPDATE NO ACTION ON DELETE NO ACTION;

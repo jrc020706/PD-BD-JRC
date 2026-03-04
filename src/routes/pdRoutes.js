@@ -15,7 +15,7 @@ export const runMigration = async () => {
                     for (const row of results) {
                         // 1. Insertar Cliente (evitando duplicados)
                         const resCust = await query(
-                            `INSERT INTO "Customer" (customer_name, customer_email, customer_address, customer_phone) 
+                            `INSERT INTO "customer" (customer_name, customer_email, customer_address, customer_phone) 
                              VALUES ($1, $2, $3, $4) ON CONFLICT (customer_email) DO UPDATE SET customer_name = EXCLUDED.customer_name 
                              RETURNING id_customer`,
                             [row.customer_name, row.customer_email, row.customer_address, row.customer_phone]
@@ -29,7 +29,7 @@ export const runMigration = async () => {
                             [row.product_category]
                         );
 
-                        // Aquí seguirías con Product, Orders y finalmente Transaction...
+                        // Aquí seguirías con product, Orders y finalmente transaction...
                     }
                     resolve({ message: "Migración completada", total: results.length });
                 } catch (err) {

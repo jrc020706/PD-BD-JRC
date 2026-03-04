@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { env } from "./env.js";
 
 /**
- * Esquema de un Ítem de Pedido (Detalle del Producto)
+ * Esquema de un Ítem de Pedido (Detalle del producto)
  * Representa los productos comprados en una transacción específica.
  */
 const orderItemSchema = new mongoose.Schema({
@@ -29,7 +29,7 @@ const orderSchema = new mongoose.Schema({
 }, { _id: false });
 
 /**
- * Esquema de Historial del Cliente (CustomerHistory)
+ * Esquema de Historial del Cliente (customerHistory)
  * Centraliza toda la actividad de compra de un usuario.
  */
 const customerHistorySchema = new mongoose.Schema({
@@ -57,7 +57,7 @@ const customerHistorySchema = new mongoose.Schema({
 // Índice para búsquedas rápidas por email del cliente
 customerHistorySchema.index({ customerEmail: 1 });
 
-export const CustomerHistory = mongoose.model("CustomerHistory", customerHistorySchema);
+export const customerHistory = mongoose.model("customerHistory", customerHistorySchema);
 
 /**
  * Conexión a MongoDB
