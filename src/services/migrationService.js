@@ -26,7 +26,7 @@ Ejecuta:
 
     if (clearBefore) {
       await client.query(`
-        TRUNCATE TABLE transaction, product, product_categories, 
+        TRUNCATE TABLE transactions, product, product_categories, 
         suppliers, customer, orders CASCADE
       `);
     }
@@ -39,15 +39,16 @@ Ejecuta:
         `INSERT INTO product_categories (category_name)
          VALUES ($1)
          ON CONFLICT (category_name) DO NOTHING`,
-        [row.product_categories]
+        [row.product_category]
       );
 
       const { rows: [cat] } = await client.query(
         `SELECT id_pcategory 
          FROM product_categories 
          WHERE category_name = $1`,
-        [row.product_categories]
+        [row.product_category]
       );
+      if (!cat) throw new Error(`Categoría no encontrada: ${row.product_category}`);
 
       // 2️ CLIENTE
       await client.query(
@@ -66,19 +67,21 @@ Ejecuta:
         `SELECT id FROM customer WHERE email = $1`,
         [row.customer_email]
       );
+      if (!cust) throw new Error(`Cliente no encontrado: ${row.customer_email}`);
 
       // 3️ PROVEEDOR
       await client.query(
         `INSERT INTO suppliers (supplier_name, supplier_email)
          VALUES ($1, $2)
-         ON CONFLICT (supplier_name) DO NOTHING`,
+         ON CONFLICT (supplier_email) DO NOTHING`,
         [row.supplier_name, row.supplier_email]
       );
 
       const { rows: [supp] } = await client.query(
-        `SELECT id FROM suppliers WHERE supplier_name = $1`,
-        [row.supplier_name]
+        `SELECT id FROM suppliers WHERE supplier_email = $1`,
+        [row.supplier_email]
       );
+      if (!supp) throw new Error(`Proveedor no encontrado: ${row.supplier_email}`);
 
       // 4️ ORDEN
       const { rows: [order] } = await client.query(
@@ -86,7 +89,7 @@ Ejecuta:
          VALUES ($1, $2)
          ON CONFLICT (id_orders) DO NOTHING
          RETURNING id_orders`,
-        [row.id_orders || row.transaction_id, row.date]
+        [row.id_orders || row.transactions_id, row.date]
       );
 
       // 5️ PRODUCTO
@@ -106,14 +109,15 @@ Ejecuta:
         `SELECT id FROM product WHERE product_sku = $1`,
         [row.product_sku]
       );
-
+      if (!prod) throw new Error(`Producto no encontrado: ${row.product_sku}`);
+      
       //  TRANSACCIÓN
       await client.query(
-        `INSERT INTO transaction
+        `INSERT INTO transactions
          (id_orders, id_customer, id_supplier, id_product, quantity, total_line_value)
          VALUES ($1, $2, $3, $4, $5, $6)`,
         [
-          row.id_orders || row.transaction_id,
+          row.id_orders || row.transactions_id,
           cust.id,
           supp.id,
           prod.id,
