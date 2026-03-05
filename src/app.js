@@ -1,7 +1,13 @@
-// src/app.js
 import express from 'express';
+
 const app = express();
 
-// ... tus configuraciones ...
+// Middleware para parsear JSON
+app.use(express.json());
 
-export default app; // <--- ¡Esta línea es la clave!
+// Ruta de prueba
+app.get('/', (req, res) => {
+  res.json({ message: 'API funcionando correctamente 🚀' });
+});
+
+export default app;

@@ -45,14 +45,14 @@ export async function createTables() {
 
         // 5. Órdenes
         await client.query(`CREATE TABLE IF NOT EXISTS orders (
-            id_orders VARCHAR(50) PRIMARY KEY,
-            orders_date DATE 
+            id_orders SERIAL PRIMARY KEY,
+            orders_date DATE NOT NULL
         )`);  
 
         // 6. Transacciones (Detalle de la orden)
         await client.query(`CREATE TABLE IF NOT EXISTS transactions (
             id_transactions SERIAL PRIMARY KEY,
-            id_orders INTEGER REFERENCES orders(id_orders),
+            id_orders VARCHAR(50) REFERENCES orders(id_orders),
             id_customer INTEGER REFERENCES customer(id),
             id_supplier INTEGER REFERENCES suppliers(id),
             id_product INTEGER REFERENCES product(id),

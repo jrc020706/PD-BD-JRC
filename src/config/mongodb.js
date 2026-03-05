@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { env } from "./env.js";
+import { config } from "./env.js";
 
 /**
  * Esquema de un Ítem de Pedido (Detalle del producto)
@@ -67,11 +67,11 @@ export async function connectMongo() {
         if (mongoose.connection.readyState === 1) return;
 
         // Se recomienda revisar la [Guía de Conexión de Mongoose](https://mongoosejs.com) para producción
-        await mongoose.connect(env.databaseMongoUrl);
+        await mongoose.connect(config.MONGODB_URI);
         
-        console.log("✅ MongoDB: Conexión establecida para Historial de E-commerce.");
+        console.log(" MongoDB: Conexión establecida para Historial de E-commerce.");
     } catch (error) {
-        console.error("❌ MongoDB: Error de conexión:", error.message);
+        console.error(" MongoDB: Error de conexión:", error.message);
         throw error; 
     }
 }

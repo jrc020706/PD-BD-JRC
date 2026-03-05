@@ -1,4 +1,4 @@
-transaction_id	date	customer_name	customer_email	customer_address	customer_phone	product_category	product_sku	product_name	unit_price	quantity	total_line_value	supplier_name	supplier_email
+transactions_id	date	customer_name	customer_email	customer_address	customer_phone	product_category	product_sku	product_name	unit_price	quantity	total_line_value	supplier_name	supplier_email
 TXN-2001	2024-02-21	Andres Lopez	andres.lopez@gmail.com	Cra 45 #12-90 Medellin	3012223344	Accessories	MSE-LOG-502	Mouse Logitech M502	150000	3	450000	TechWorld SAS	ventas@techworld.com
 TXN-2001	2024-02-21	Andres Lopez	andres.lopez@gmail.com	Cra 45 #12-90 Medellin	3012223344	Home	CLK-WAL-05	Reloj de Pared	80000	1	80000	TechWorld SAS	ventas@techworld.com
 TXN-2001	2024-02-21	Andres Lopez	andres.lopez@gmail.com	Cra 45 #12-90 Medellin	3012223344	Electronics	TBL-SAM-10	Tablet Samsung 10"	1200000	3	3600000	TechWorld SAS	ventas@techworld.com

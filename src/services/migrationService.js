@@ -37,8 +37,8 @@ Ejecuta:
       console.log(row);
       await client.query(
         `INSERT INTO product_categories (category_name)
-         VALUES ($1)
-         ON CONFLICT (category_name) DO NOTHING`,
+          VALUES ($1)
+          ON CONFLICT (category_name) DO NOTHING`,
         [row.product_category]
       );
 
@@ -110,7 +110,7 @@ Ejecuta:
         [row.product_sku]
       );
       if (!prod) throw new Error(`Producto no encontrado: ${row.product_sku}`);
-      
+
       //  TRANSACCIÓN
       await client.query(
         `INSERT INTO transactions
